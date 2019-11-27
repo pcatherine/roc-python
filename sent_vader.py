@@ -9,8 +9,8 @@ app.config["DEBUG"] = True
 
 # Rota que retorna a análise de sentimento
 @app.route('/sentiment/vader', methods=['POST'])
-def sentiment_scores(sentence): 
-  
+def sentiment_scores(): 
+    sentence = request.args.get('sentence')
     # Objeto SentimentIntensityAnalyzer 
     analyser = SentimentIntensityAnalyzer()
  
