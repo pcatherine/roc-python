@@ -56,16 +56,15 @@ def sentiment_analysis(comments):
     # Extrai as features para cada review
     for line in comments:
         feats.append(find_features(line['review']))
-
+    
     # Volta a classificação e confiança para cada review
     for feat in feats:
         classification.append(ensemble.classify(feat))
         confidence.append(ensemble.confidence(feat))
-    
+        # class_dict.update({"classification":ensemble.classify(feat), "confidence":ensemble.confidence(feat)})
+
     lenght_class = len(classification)
-    lenght_conf = len(confidence)
-    class_dict = {}
-    cn, cp, cont_p, cont_n = 0, 0, 0, 0
+    cont_p, cont_n = 0, 0
     for cl in classification:
         if cl == 'pos': 
             cont_p += 1
@@ -74,7 +73,8 @@ def sentiment_analysis(comments):
     res1 = cont_p/lenght_class
     res2 = cont_n/lenght_class
 
-    return classification, res1, res2
+    return res1, res2
+    # Retorno de cada classificador
     # return log_reg.classify(feats
     # return onb.classify(feats)
     # return rf.classify(feats)
@@ -107,7 +107,4 @@ if __name__ == "__main__" :
         {"review":"You can really see great acting come out with a good script, dialogue, and story line. Christina Applegate is so good this! You literally never know what's going to happen next in this show. It's a binger!"},
         {"review":"It was bad"}
     ]
-    result = sentiment_analysis(comments)
-    print("Resultado: ", result[0])
-    print("Res1: ", result[1])
-    print("Res2: ", result[2])
+    print(sentiment_analysis(comments))
