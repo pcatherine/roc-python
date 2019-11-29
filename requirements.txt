@@ -1,4 +1,6 @@
+cloudpickle==0.8.0
 nltk==3.4
+pickleshare==0.7.5
 pylint==2.1.1
 requests==2.21.0
 scikit-image==0.14.2
