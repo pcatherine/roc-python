@@ -79,7 +79,8 @@ for n in files_neg:
         if word[1][0] in bag_of_words:
             all_words.append(word[0].lower())
 
-print("PASSOU")
+# print("PASSOU")
+
 # TF-IDF
 all_words = nltk.FreqDist(all_words)
 
@@ -89,7 +90,7 @@ pck = open("word_features.pickle", "wb")
 pickle.dump(word_features,pck)
 pck.close()
 
-print("PASSOU2")
+# print("PASSOU2")
 
 # Criando um dicionário de features
 def find_features(document):
@@ -107,6 +108,7 @@ random.shuffle(feature_set)
 training_set = feature_set[:20000]
 testing_set = feature_set[20000:]
 
+# print(TERMINOU)
 
 # Descomente para treinar modelo
 # log_reg = SklearnClassifier(LogisticRegression())

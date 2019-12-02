@@ -18,27 +18,12 @@ class EnsembleClassifier(ClassifierI):
             votes.append(v)
         return mode(votes)
 
-    # Retorna a confiança na classificação 
-    def confidence(self, features):
-        votes = []
-        for c in self._classifiers:
-            v = c.classify(features)
-            votes.append(v)
-
-        choice_votes = votes.count(mode(votes))
-        conf = choice_votes / len(votes)
-        return conf 
-
 # Carrega os modelos pré-treinados
 def load_model(file_path): 
     classifier_file = open(file_path, "rb")
     classifier = pickle.load(classifier_file)
     classifier_file.close()
     return classifier
-
-# Load de palavras e features do arquivo de treinamento
-pck = open('word_features.pickle','rb')
-word_features = pickle.load(pck)
 
 def find_features(document):
     words = word_tokenize(document)
@@ -51,7 +36,7 @@ def find_features(document):
 def sentiment_analysis(comments):
     feats = []
     classification = []
-    confidence = []
+    # confidence = []
     
     # Extrai as features para cada review
     for line in comments:
@@ -60,8 +45,6 @@ def sentiment_analysis(comments):
     # Volta a classificação e confiança para cada review
     for feat in feats:
         classification.append(ensemble.classify(feat))
-        confidence.append(ensemble.confidence(feat))
-        # class_dict.update({"classification":ensemble.classify(feat), "confidence":ensemble.confidence(feat)})
 
     lenght_class = len(classification)
     cont_p, cont_n = 0, 0
@@ -80,6 +63,10 @@ def sentiment_analysis(comments):
     # return rf.classify(feats)
     # return sgd.classify(feats)
     # return svc.classify(feats)
+
+# Load de palavras e features do arquivo de treinamento
+pck = open('word_features.pickle','rb')
+word_features = pickle.load(pck)
 
 # Logistic Regression 
 log_reg = load_model('saved_files/log_reg.pickle')
